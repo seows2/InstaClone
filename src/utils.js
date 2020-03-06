@@ -1,9 +1,7 @@
-import dotenv from "dotenv";
-import path from "path";
-dotenv.config({ path: path.resolve(__dirname, ".env") });
 import { adjectives, nouns } from "./word";
 import nodemailer from "nodemailer";
 import mg from "nodemailer-mailgun-transport";
+import jwt from "jsonwebtoken";
 
 export const generateSecret = () => {
   const randomNumber = Math.floor(Math.random() * adjectives.length);
@@ -24,7 +22,7 @@ export const sendSecretMail = (adress, secret) => {
       from: "Project@seows.com",
       to: adress,
       subject: `우석SNS 가입 인증 메일입니다.`,
-      html: `안녕하세요! 가입인증 메일입니다. <br>${secret}<br>로그인 하기 위해 위 단어를 앱/웹사이트에 복사해 붙여넣어주세요!`
+      html: `안녕하세요! 가입인증 메일입니다. <br><strong>${secret}</strong><br>로그인 하기 위해 위 단어를 앱/웹사이트에 복사해 붙여넣어주세요!`
     },
     err => {
       if (err) {
@@ -34,4 +32,8 @@ export const sendSecretMail = (adress, secret) => {
       }
     }
   );
+};
+
+export const generateToken = id => {
+  return jwt.sign({ id }, process.env.JWT_SECRET);
 };
