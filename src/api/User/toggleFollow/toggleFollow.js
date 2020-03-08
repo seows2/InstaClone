@@ -6,6 +6,7 @@ export default {
       isAuthenticated(request);
       const { id } = args;
       const { user } = request;
+
       try {
         const existFollow = await prisma.$exists.user({
           AND: [{ id: user.id }, { following_some: { id } }]
