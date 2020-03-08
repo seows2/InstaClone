@@ -1,5 +1,3 @@
-//////////////////Post/SeeFullPost/////////////////////////
-
 export const USER_FRAGMENT = `
     id
     username
@@ -14,35 +12,25 @@ export const COMMENT_FRAGMENT = `
     }
 `;
 
-export const FILE_FRAGMENT = `
+export const MESSAGE_FRAGMENT = `
     id
-    url
-`;
-
-export const FULL_POST_FRAGMENT = `
-    fragment list on Post{
-        id
-        location
-        caption
-        files {
-            ${FILE_FRAGMENT}
-        }
-        comments {
-            ${COMMENT_FRAGMENT}
-        }
-        user {
-            ${USER_FRAGMENT}
-        }
+    text
+    to {
+        ${USER_FRAGMENT}
+    }
+    from {
+        ${USER_FRAGMENT}
     }
 `;
-//////////////////Post/SeeFullPost/////////////////////////
 
-//////////////////Message/sendMessage/////////////////////////
 export const ROOM_FRAGMENT = `
-    fragment list on Room{
+    fragment RoomParts on Room {
         id
-        participants{
-            id
+        participants {
+            ${USER_FRAGMENT}
+        }
+        messages { 
+            ${MESSAGE_FRAGMENT}
         }
     }
 `;

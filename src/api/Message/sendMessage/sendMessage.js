@@ -20,7 +20,6 @@ export default {
               }
             })
             .$fragment(ROOM_FRAGMENT);
-          console.log("ROOM", room);
         }
       } else {
         //채팅방이 있다면 채팅방 찾기
@@ -32,7 +31,6 @@ export default {
       const getTo = room.participants.filter(
         participant => participant.id !== user.id
       );
-      console.log("getTo", getTo);
 
       //그리고 메세지 생성
       const newMessage = await prisma.createMessage({

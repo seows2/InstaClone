@@ -14,12 +14,17 @@ export default {
         ]
       });
     },
-    likeCount: (parent, _, { prisma }) =>
-      prisma
+    likeCount: (parent, _, { prisma }) => {
+      return prisma
         .likesConnection({
           where: { post: { id: parent.id } }
         })
         .aggregate()
-        .count()
+        .count();
+    },
+    files: (parent, _, { prisma }) => prisma.post({ id: parent.id }).files(),
+    comments: (parent, _, { prisma }) =>
+      prisma.post({ id: parent.id }).comments(),
+    user: (parent, _, { prisma }) => prisma.post({ id: parent.id }).user()
   }
 };
