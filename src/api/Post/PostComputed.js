@@ -25,6 +25,15 @@ export default {
     files: (parent, _, { prisma }) => prisma.post({ id: parent.id }).files(),
     comments: (parent, _, { prisma }) =>
       prisma.post({ id: parent.id }).comments(),
-    user: (parent, _, { prisma }) => prisma.post({ id: parent.id }).user()
+    user: (parent, _, { prisma }) => prisma.post({ id: parent.id }).user(),
+    likes: ({ id }) => prisma.post({ id }).likes(),
+
+    commentCount: parent =>
+      prisma
+        .commentsConnection({
+          where: { post: { id: parent.id } }
+        })
+        .aggregate()
+        .count()
   }
 };
