@@ -27,8 +27,6 @@ export const sendSecretMail = (adress, secret) => {
     err => {
       if (err) {
         console.log(`Error: ${err}`);
-      } else {
-        console.log(`전송 완료!`);
       }
     }
   );
